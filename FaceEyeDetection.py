@@ -120,14 +120,24 @@ if __name__ == "__main__":
 
     count = 0
     fd = FaceEyeDetectionDlib(join("models","shape_predictor_68_face_landmarks.dat"))
-    cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+    cap = cv2.VideoCapture(1, cv2.CAP_DSHOW)
     
     try:
         while True:
             ret, frame = cap.read()
             if ret:
                 rects, boxes = fd.detect_faces(frame)
+                # faces = fd.extract_faces(frame, boxes)
                 boxes = fd.detect_eyes(frame, rects)
+                # fld = fd.extract_faces_eye(frame, boxes, True)
+                # for ix, face in enumerate(faces):
+                #     cv2.imshow(f"face{ix}", face)
+
+                # for ix, (face, le, re) in enumerate(fld):
+                #     cv2.imshow(f"facex{ix}", face)
+                #     cv2.imshow(f"left{ix}", le)
+                #     cv2.imshow(f"right{ix}", re)
+
                 frame = fd.draw_faces_eyes(frame, boxes)
                 if frame is None:
                     exit(1)
