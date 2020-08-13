@@ -8,13 +8,6 @@ import os, datetime as dt
 
 IMG_SIZE = (24, 24)
 
-def load_face_eye_models(fpath, lpath, rpath):
-    face_detector = cv2.CascadeClassifier(fpath)
-    left_eye_detector = cv2.CascadeClassifier(lpath)
-    right_eye_detector = cv2.CascadeClassifier(rpath)
-    return face_detector, left_eye_detector, right_eye_detector
-
-
 
 def load_blink_model(wpath="model2.h5"):
     model = keras.models.load_model(wpath)
@@ -69,8 +62,8 @@ if __name__ == "__main__":
     count = 0
     fd = FaceEyeDetectionDlib(join("models","shape_predictor_68_face_landmarks.dat"))
     model = load_blink_model( os.path.join("models","eb1.h5"))
-    # cap = cv2.VideoCapture(1, cv2.CAP_DSHOW)
-    cap = cv2.VideoCapture("blink-detection\\11.MP4")
+    cap = cv2.VideoCapture(1, cv2.CAP_DSHOW)
+    # cap = cv2.VideoCapture("blink-detection\\11.MP4")
 
 
     try:
@@ -130,10 +123,10 @@ if __name__ == "__main__":
                         # print(hist)
                         hist = ""
 
-                # cv2.putText(frame, f"Blinks :  {blink_count}", (20, 20), cv2.FONT_HERSHEY_SIMPLEX,0.75, (0, 255, 0), 2)
-                # cv2.imshow("eye blink detection",frame)
-                # if cv2.waitKey(1) == 13:
-                #     break
+                cv2.putText(frame, f"Blinks :  {blink_count}", (20, 20), cv2.FONT_HERSHEY_SIMPLEX,0.75, (0, 255, 0), 2)
+                cv2.imshow("eye blink detection",frame)
+                if cv2.waitKey(1) == 13:
+                    break
             else:
                 break
 
